@@ -11,7 +11,5 @@ class Engine {
   ~Engine() = default;
 
  private:
-  int _value = 10;
-  bool _myBool;
 };
 }  // namespace dfe
