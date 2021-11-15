@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine.h"
+#include <engine.h>
 
 namespace dfe {
 struct ApplicationInitSettings {
@@ -11,6 +11,8 @@ class Application {
  public:
   Application(const ApplicationInitSettings& initSettings);
   ~Application() = default;
+
+  void Run();
 
  private:
   Engine _engine;

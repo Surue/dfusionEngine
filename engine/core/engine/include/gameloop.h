@@ -15,5 +15,7 @@ class Gameloop {
 
  private:
   bool _isRunning;
+  double _elapsedTime;
+  double _deltaTime;
 };
 }  // namespace dfe

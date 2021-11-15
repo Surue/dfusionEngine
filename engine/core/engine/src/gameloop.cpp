@@ -4,33 +4,37 @@
 
 #include <chrono>
 #include <string>
+#include <thread>
 
 namespace dfe {
-Gameloop::Gameloop() {}
+Gameloop::Gameloop() : _elapsedTime(0), _isRunning(false) {}
 void Gameloop::Init() {}
 void Gameloop::Update() {
   _isRunning = true;
 
   auto startChrono = std::chrono::system_clock::now();
-
+  std::chrono::system_clock::time_point startFrame;
   while (_isRunning) {
-    auto startFrame = std::chrono::system_clock::now();
+    startFrame = std::chrono::system_clock::now();
     // Update
 
-    while (std::chrono::duration<double>(std::chrono::system_clock::now() -
-                                         startFrame)
-               .count() < std::chrono::duration<double>(0.02f).count()) {
-    }
+    Debug::Log(std::to_string(_elapsedTime));
 
-    auto time = std::chrono::duration<double>(std::chrono::system_clock::now() -
-                                              startChrono)
-                    .count();
+    // Wait time
+    //auto t = std::chrono::duration<double>(std ::chrono::system_clock::now() - startFrame).count();
+    auto sleepDuration = std::chrono::duration<double>(
+        0.02 - std::chrono::duration<double>(std ::chrono::system_clock::now() -
+                                             startFrame)
+                   .count());
 
-    Debug::Log(std::to_string(time));
+    std::this_thread::sleep_for(sleepDuration);
 
-    if (time > 10) {
-      _isRunning = false;
-    }
+    // Update timers
+    _deltaTime = std::chrono::duration<double>(
+                     std::chrono::system_clock::now() - startFrame)
+                     .count();
+
+    _elapsedTime += _deltaTime;
   }
 }
 void Gameloop::Destroy() {}
