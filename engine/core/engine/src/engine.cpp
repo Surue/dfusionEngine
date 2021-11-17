@@ -7,6 +7,8 @@ namespace dfe {
 Engine::Engine(EngineInitSettings initSettings) : _gameloop() { }
 void Engine::Run() {
   _gameloop.Init();
-  _gameloop.Update();
+  _graphicsEngine.Init();
+
+  _gameloop.Update(&_graphicsEngine);
 }
 }  // namespace dfe
