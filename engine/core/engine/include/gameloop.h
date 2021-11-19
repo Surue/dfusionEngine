@@ -1,5 +1,6 @@
 #pragma once
 #include <graphics_engine.h>
+#include <inputs.h>
 
 namespace dfe {
 struct GameloopInitSettings {
@@ -11,7 +12,7 @@ class Gameloop {
   Gameloop();
   ~Gameloop() = default;
   void Init();
-  void Update(GraphicsEngine* graphicsEnigne);
+  void Update(GraphicsEngine* graphicsEnigne, Inputs* inputs);
   void Destroy();
 
  private:
@@ -20,5 +21,6 @@ class Gameloop {
   double _deltaTime;
 
   GraphicsEngine* _graphicsEngine;
+  Inputs* _inputs;
 };
 }  // namespace dfe

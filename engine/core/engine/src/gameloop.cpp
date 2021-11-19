@@ -9,10 +9,11 @@
 namespace dfe {
 Gameloop::Gameloop() : _elapsedTime(0), _isRunning(false), _deltaTime(0.0) {}
 void Gameloop::Init() {}
-void Gameloop::Update(GraphicsEngine* graphicsEnigne) {
+void Gameloop::Update(GraphicsEngine* graphicsEnigne, Inputs* inputs) {
   _isRunning = true;
 
   _graphicsEngine = graphicsEnigne;
+  _inputs = inputs;
 
   auto startChrono = std::chrono::high_resolution_clock::now();
   std::chrono::high_resolution_clock::time_point startFrame;
@@ -21,12 +22,23 @@ void Gameloop::Update(GraphicsEngine* graphicsEnigne) {
     // Time start frame
     startFrame = std::chrono::high_resolution_clock::now();
 
-    // Update
-    // TODO Inputs
+    // Update inputs
+    _inputs->Update();
 
     // TODO Update
+    if (_inputs->IsKeyDown(KeyCode::A)) {
+      Debug::Log("Key A is Down");
+    }
 
-    // TODO Render
+    if (_inputs->IsKeyHeld(KeyCode::A)) {
+      Debug::Log("Key A is Held");
+    }
+
+    if (_inputs->IsKeyUp(KeyCode::A)) {
+      Debug::Log("Key A is Up");
+    }
+
+    // Render
     _graphicsEngine->Render();
 
     // Wait time
