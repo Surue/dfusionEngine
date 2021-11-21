@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include <vector>
+#include <gameloop.h>
 
 namespace dfe {
 enum class KeyCode : uint16_t {
@@ -248,12 +249,15 @@ enum class KeyCode : uint16_t {
 
 enum class ButtonStatus : uint8_t { NONE, DOWN, HELD, UP };
 
-class Inputs {
+class Inputs : public IInputeUpdatable {
  public:
   Inputs();
   ~Inputs() = default;
 
-  void Update();
+  void Init();
+
+  // Hérité via IInputeUpdatable
+  virtual void UpdateInputs() override;
 
   /**
    * @brief Check if the key has just been pressed

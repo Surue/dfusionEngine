@@ -1,4 +1,6 @@
 #include <gameloop.h>
+#include <core_system_manager.h>
+#include <inputs.h>
 #include <log.h>
 
 #include <chrono>
@@ -8,38 +10,46 @@
 
 namespace dfe {
 Gameloop::Gameloop() : _elapsedTime(0), _isRunning(false), _deltaTime(0.0) {}
-void Gameloop::Init() {}
-void Gameloop::Update(GraphicsEngine* graphicsEnigne, Inputs* inputs) {
-  _isRunning = true;
+void Gameloop::RegisterCoreSystem(const CoreSystemManager& coreSystemManager) {
+  auto updatables = coreSystemManager.GetUpdatables();
+  for (int i = 0; i < updatables.size(); i++) {
+    _updatables.push_back(updatables[i]);
+  }
 
-  _graphicsEngine = graphicsEnigne;
-  _inputs = inputs;
+  auto inputUpdatables = coreSystemManager.GetInputUpdatables();
+  for (int i = 0; i < inputUpdatables.size(); i++) {
+    _inputsUpdatables.push_back(inputUpdatables[i]);
+  }
+
+  auto rendarable = coreSystemManager.GetRenderable();
+  for (int i = 0; i < rendarable.size(); i++) {
+    _renderables.push_back(rendarable[i]);
+  }
+}
+void Gameloop::Init() {}
+void Gameloop::Update() {
+  _isRunning = true;
 
   auto startChrono = std::chrono::high_resolution_clock::now();
   std::chrono::high_resolution_clock::time_point startFrame;
-  
+
   while (_isRunning) {
     // Time start frame
     startFrame = std::chrono::high_resolution_clock::now();
 
     // Update inputs
-    _inputs->Update();
-
-    // TODO Update
-    if (_inputs->IsKeyDown(KeyCode::A)) {
-      Debug::Log("Key A is Down");
+    for (size_t i = 0; i < _inputsUpdatables.size(); i++) {
+      _inputsUpdatables[i]->UpdateInputs();
     }
 
-    if (_inputs->IsKeyHeld(KeyCode::A)) {
-      Debug::Log("Key A is Held");
-    }
+    // Update
 
-    if (_inputs->IsKeyUp(KeyCode::A)) {
-      Debug::Log("Key A is Up");
-    }
+    // Draw
 
     // Render
-    _graphicsEngine->Render();
+    for (size_t i = 0; i < _renderables.size(); i++) {
+      _renderables[i]->Render();
+    }
 
     // Wait time
     while (std::chrono::duration<double>(

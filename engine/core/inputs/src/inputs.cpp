@@ -5,7 +5,19 @@ Inputs::Inputs() {
   _keysSatus.resize(static_cast<int>(KeyCode::KEYBOARD_SIZE),
                     ButtonStatus::NONE);
 }
-void Inputs::Update() {
+
+void Inputs::Init() {}
+
+bool Inputs::IsKeyDown(KeyCode key) {
+  return _keysSatus[static_cast<int>(key)] == ButtonStatus::DOWN;
+}
+bool Inputs::IsKeyHeld(KeyCode key) {
+  return _keysSatus[static_cast<int>(key)] == ButtonStatus::HELD;
+}
+bool Inputs::IsKeyUp(KeyCode key) {
+  return _keysSatus[static_cast<int>(key)] == ButtonStatus::UP;
+}
+void Inputs::UpdateInputs() {
   // Update keys's status
   for (int i = 0; i < static_cast<int>(KeyCode::KEYBOARD_SIZE); i++) {
     if (_keysSatus[i] == ButtonStatus::DOWN) {
@@ -41,14 +53,5 @@ void Inputs::Update() {
         break;
     }
   }
-}
-bool Inputs::IsKeyDown(KeyCode key) {
-  return _keysSatus[static_cast<int>(key)] == ButtonStatus::DOWN;
-}
-bool Inputs::IsKeyHeld(KeyCode key) {
-  return _keysSatus[static_cast<int>(key)] == ButtonStatus::HELD;
-}
-bool Inputs::IsKeyUp(KeyCode key) {
-  return _keysSatus[static_cast<int>(key)] == ButtonStatus::UP;
 }
 }  // namespace dfe

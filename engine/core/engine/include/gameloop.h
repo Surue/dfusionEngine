@@ -1,8 +1,14 @@
 #pragma once
 #include <graphics_engine.h>
-#include <inputs.h>
+#include <core_system.h>
+
+#include <vector>
 
 namespace dfe {
+// Prototypes
+class CoreSystemManager;
+// Prototypes
+
 struct GameloopInitSettings {
   float updateTime = 0.2f;
 };
@@ -11,8 +17,10 @@ class Gameloop {
  public:
   Gameloop();
   ~Gameloop() = default;
+
+  void RegisterCoreSystem(const CoreSystemManager& coreSystemManager);
   void Init();
-  void Update(GraphicsEngine* graphicsEnigne, Inputs* inputs);
+  void Update();
   void Destroy();
 
  private:
@@ -20,7 +28,9 @@ class Gameloop {
   double _elapsedTime;
   double _deltaTime;
 
-  GraphicsEngine* _graphicsEngine;
-  Inputs* _inputs;
+  std::vector<IUpdatable*> _updatables;
+  std::vector<IInputeUpdatable*> _inputsUpdatables;
+  std::vector<IDrawable*> _drawables;
+  std::vector<IRenderable*> _renderables;
 };
 }  // namespace dfe

@@ -3,8 +3,10 @@
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
 
+#include <core_system.h>
+
 namespace dfe {
-class GraphicsEngine {
+class GraphicsEngine: public IRenderable {
  public:
   GraphicsEngine() = default;
 
