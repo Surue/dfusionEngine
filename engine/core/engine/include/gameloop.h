@@ -1,5 +1,4 @@
 #pragma once
-#include <graphics_engine.h>
 #include <core_system.h>
 
 #include <vector>

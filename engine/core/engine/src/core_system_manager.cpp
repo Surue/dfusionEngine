@@ -4,6 +4,8 @@ namespace dfe {
 void CoreSystemManager::Init() {
   _inputs.Init();
   _graphicsEngine.Init();
+
+  _inputs.ProvideWindowInputsListener(_graphicsEngine.GetWindowInputs());
 }
 
 std::vector<IUpdatable*> CoreSystemManager::GetUpdatables() const {

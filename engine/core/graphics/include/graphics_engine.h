@@ -2,21 +2,24 @@
 
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
-
 #include <core_system.h>
+#include <window.h>
+
+#include <string_view>
 
 namespace dfe {
-class GraphicsEngine: public IRenderable {
+
+class GraphicsEngine : public IRenderable {
  public:
-  GraphicsEngine() = default;
+  GraphicsEngine(std::string_view windowName = "dFusionEngine")
+      : _window(windowName) {}
 
   void Init() {
     SDL_Init(SDL_INIT_VIDEO);
 
-    _window = SDL_CreateWindow("SDL2Test", SDL_WINDOWPOS_UNDEFINED,
-                                          SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
+    _window.Init();
 
-    _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_SOFTWARE);
+    _renderer = _window.CreateRenderer();
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(_renderer);
     SDL_RenderPresent(_renderer);
@@ -28,13 +31,15 @@ class GraphicsEngine: public IRenderable {
 
     if (tmp == 1000) {
       SDL_DestroyRenderer(_renderer);
-      SDL_DestroyWindow(_window);
+      _window.Destroy();
       SDL_Quit();
     }
   }
 
+  IWindowInputs& GetWindowInputs() { return _window; }
+
  private:
-  SDL_Window *_window;
+  Window _window;
   SDL_Renderer *_renderer;
 };
 }  // namespace dfe

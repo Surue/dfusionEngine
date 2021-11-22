@@ -1,8 +1,9 @@
 #pragma once
 
-#include <SDL.h>
-#include <vector>
 #include <gameloop.h>
+#include <SDL_scancode.h>
+#include <vector>
+#include <functional>
 
 namespace dfe {
 enum class KeyCode : uint16_t {
@@ -249,6 +250,14 @@ enum class KeyCode : uint16_t {
 
 enum class ButtonStatus : uint8_t { NONE, DOWN, HELD, UP };
 
+class IWindowInputs {
+ public:
+  virtual std::function<void()> GetCallbackOnWindowsResized() const = 0;
+  virtual std::function<void()> GetCallbackOnWindowsMinimized() const = 0;
+  virtual std::function<void()> GetCallbackOnWindowsMaximized() const = 0;
+  virtual std::function<void()> GetCallbackOnWindowsRestored() const = 0;
+};
+
 class Inputs : public IInputeUpdatable {
  public:
   Inputs();
@@ -260,27 +269,38 @@ class Inputs : public IInputeUpdatable {
   virtual void UpdateInputs() override;
 
   /**
-   * @brief Check if the key has just been pressed
-   * @param key 
-   * @return true if the key has been pressed the last frame
+   * @brief Provide an interface to get all callback linked to window's input
+   * @param windowInput 
   */
+  void ProvideWindowInputsListener(const IWindowInputs& windowInput);
+
+  /**
+   * @brief Check if the key has just been pressed
+   * @param key
+   * @return true if the key has been pressed the last frame
+   */
   bool IsKeyDown(KeyCode key);
 
   /**
    * @brief Check if the given key is hold down
-   * @param key 
+   * @param key
    * @return true if the key is currently down
-  */
+   */
   bool IsKeyHeld(KeyCode key);
-  
+
   /**
    * @brief Check is the given key has been released
-   * @param key 
+   * @param key
    * @return true if the key has been released this frame
-  */
+   */
   bool IsKeyUp(KeyCode key);
 
  private:
   std::vector<ButtonStatus> _keysSatus;
+
+  std::function<void()> _callbackOnWindowResized;
+  std::function<void()> _callbackOnWindowMinimized;
+  std::function<void()> _callbackOnWindowMaximized;
+  std::function<void()> _callbackOnWindowRestored;
 };
 }  // namespace dfe

@@ -1,5 +1,7 @@
 #include <inputs.h>
 
+#include <SDL.h>
+
 namespace dfe {
 Inputs::Inputs() {
   _keysSatus.resize(static_cast<int>(KeyCode::KEYBOARD_SIZE),
@@ -49,9 +51,32 @@ void Inputs::UpdateInputs() {
         break;
       case SDL_MOUSEWHEEL:
         break;
+      case SDL_WINDOWEVENT:
+        if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
+          _callbackOnWindowResized();
+        }
+
+        if (event.window.event == SDL_WINDOWEVENT_MINIMIZED) {
+          // Minimize windows
+        }
+
+        if (event.window.event == SDL_WINDOWEVENT_MAXIMIZED) {
+          // Maximize windows
+        }
+
+        if (event.window.event == SDL_WINDOWEVENT_RESTORED) {
+          // Restore windows
+        }
+        break;
       case SDL_QUIT:
         break;
     }
   }
+}
+void Inputs::ProvideWindowInputsListener(const IWindowInputs& windowsInput) {
+  _callbackOnWindowResized = windowsInput.GetCallbackOnWindowsResized();
+  _callbackOnWindowMinimized = windowsInput.GetCallbackOnWindowsMinimized();
+  _callbackOnWindowMaximized = windowsInput.GetCallbackOnWindowsMaximized();
+  _callbackOnWindowRestored = windowsInput.GetCallbackOnWindowsRestored();
 }
 }  // namespace dfe
