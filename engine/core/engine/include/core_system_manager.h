@@ -11,12 +11,18 @@ class CoreSystemManager {
   ~CoreSystemManager() = default;
 
   void Init();
+  
+  void Destroy() {
+      
+  }
 
   std::vector<IUpdatable*> GetUpdatables() const;
 
   std::vector<IInputeUpdatable*> GetInputUpdatables() const;
 
   std::vector<IRenderable*> GetRenderable() const;
+
+  void ProvideWindowQuitInputsListener(IQuitInputs* quitInput);
 
  private:
   Inputs _inputs;

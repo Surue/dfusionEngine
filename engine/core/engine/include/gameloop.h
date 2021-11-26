@@ -21,6 +21,7 @@ class Gameloop {
   void Init();
   void Update();
   void Destroy();
+  void Stop();
 
  private:
   bool _isRunning;

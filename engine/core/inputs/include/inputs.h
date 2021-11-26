@@ -250,12 +250,17 @@ enum class KeyCode : uint16_t {
 
 enum class ButtonStatus : uint8_t { NONE, DOWN, HELD, UP };
 
+class IQuitInputs {
+ public:
+  virtual std::function<void()> GetCallbackOnWindowQuitInputs() = 0;
+};
+
 class IWindowInputs {
  public:
-  virtual std::function<void()> GetCallbackOnWindowsResized() const = 0;
-  virtual std::function<void()> GetCallbackOnWindowsMinimized() const = 0;
-  virtual std::function<void()> GetCallbackOnWindowsMaximized() const = 0;
-  virtual std::function<void()> GetCallbackOnWindowsRestored() const = 0;
+  virtual std::function<void()> GetCallbackOnWindowsResized() = 0;
+  virtual std::function<void()> GetCallbackOnWindowsMinimized() = 0;
+  virtual std::function<void()> GetCallbackOnWindowsMaximized() = 0;
+  virtual std::function<void()> GetCallbackOnWindowsRestored() = 0;
 };
 
 class Inputs : public IInputeUpdatable {
@@ -272,7 +277,9 @@ class Inputs : public IInputeUpdatable {
    * @brief Provide an interface to get all callback linked to window's input
    * @param windowInput 
   */
-  void ProvideWindowInputsListener(const IWindowInputs& windowInput);
+  void ProvideWindowInputsListener(IWindowInputs* windowInput);
+
+  void ProvideWindowQuitInputsListener(IQuitInputs* quitInput);
 
   /**
    * @brief Check if the key has just been pressed
@@ -302,5 +309,7 @@ class Inputs : public IInputeUpdatable {
   std::function<void()> _callbackOnWindowMinimized;
   std::function<void()> _callbackOnWindowMaximized;
   std::function<void()> _callbackOnWindowRestored;
+
+  std::function<void()> _callbackOnWindowQuit;
 };
 }  // namespace dfe

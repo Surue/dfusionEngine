@@ -5,7 +5,7 @@ void CoreSystemManager::Init() {
   _inputs.Init();
   _graphicsEngine.Init();
 
-  _inputs.ProvideWindowInputsListener(_graphicsEngine.GetWindowInputs());
+  _inputs.ProvideWindowInputsListener(&_graphicsEngine.GetWindowInputs());
 }
 
 std::vector<IUpdatable*> CoreSystemManager::GetUpdatables() const {
@@ -20,5 +20,9 @@ std::vector<IInputeUpdatable*> CoreSystemManager::GetInputUpdatables() const {
 std::vector<IRenderable*> CoreSystemManager::GetRenderable() const {
   return std::vector<IRenderable*>{
       (IRenderable*)(&_graphicsEngine)};  // TODO What's the casting?
+}
+void CoreSystemManager::ProvideWindowQuitInputsListener(
+    IQuitInputs* quitInput) {
+  _inputs.ProvideWindowQuitInputsListener(quitInput);
 }
 }  // namespace dfe

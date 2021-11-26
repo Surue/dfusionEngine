@@ -6,12 +6,16 @@
 namespace dfe {
 struct EngineInitSettings {};
 
-class Engine {
+class Engine : public IQuitInputs {
  public:
   Engine(EngineInitSettings initSettings);
   ~Engine() = default;
 
   void Run();
+  void Stop();
+  void Destroy();
+
+  std::function<void()> GetCallbackOnWindowQuitInputs();
 
  private:
   Gameloop _gameloop;

@@ -21,19 +21,19 @@ class Window : public IWindowInputs {
 
   const SDL_Window& GetWindow() const { return *_window; }
 
-  std::function<void()> GetCallbackOnWindowsResized() const {
+  std::function<void()> GetCallbackOnWindowsResized() {
     return [&]() { OnWindowResize(); };
   }
 
-  std::function<void()> GetCallbackOnWindowsMinimized() const {
+  std::function<void()> GetCallbackOnWindowsMinimized() {
     return [&]() { OnWindowMinimized(); };
   }
 
-  std::function<void()> GetCallbackOnWindowsMaximized() const {
+  std::function<void()> GetCallbackOnWindowsMaximized() {
     return [&]() { OnWindowMaximized(); };
   }
 
-  std::function<void()> GetCallbackOnWindowsRestored() const {
+  std::function<void()> GetCallbackOnWindowsRestored() {
     return [&]() { OnWindowRestored(); };
   }
 

@@ -66,4 +66,5 @@ void Gameloop::Update() {
   }
 }
 void Gameloop::Destroy() {}
+void Gameloop::Stop() { _isRunning = false; }
 }  // namespace dfe

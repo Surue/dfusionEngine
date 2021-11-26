@@ -57,26 +57,30 @@ void Inputs::UpdateInputs() {
         }
 
         if (event.window.event == SDL_WINDOWEVENT_MINIMIZED) {
-          // Minimize windows
+          _callbackOnWindowMinimized();
         }
 
         if (event.window.event == SDL_WINDOWEVENT_MAXIMIZED) {
-          // Maximize windows
+          _callbackOnWindowMaximized();
         }
 
         if (event.window.event == SDL_WINDOWEVENT_RESTORED) {
-          // Restore windows
+          _callbackOnWindowRestored();
         }
         break;
       case SDL_QUIT:
+        _callbackOnWindowQuit();
         break;
     }
   }
 }
-void Inputs::ProvideWindowInputsListener(const IWindowInputs& windowsInput) {
-  _callbackOnWindowResized = windowsInput.GetCallbackOnWindowsResized();
-  _callbackOnWindowMinimized = windowsInput.GetCallbackOnWindowsMinimized();
-  _callbackOnWindowMaximized = windowsInput.GetCallbackOnWindowsMaximized();
-  _callbackOnWindowRestored = windowsInput.GetCallbackOnWindowsRestored();
+void Inputs::ProvideWindowInputsListener(IWindowInputs* windowsInput) {
+  _callbackOnWindowResized = windowsInput->GetCallbackOnWindowsResized();
+  _callbackOnWindowMinimized = windowsInput->GetCallbackOnWindowsMinimized();
+  _callbackOnWindowMaximized = windowsInput->GetCallbackOnWindowsMaximized();
+  _callbackOnWindowRestored = windowsInput->GetCallbackOnWindowsRestored();
+}
+void Inputs::ProvideWindowQuitInputsListener(IQuitInputs* quitInput) {
+  _callbackOnWindowQuit = quitInput->GetCallbackOnWindowQuitInputs();
 }
 }  // namespace dfe
