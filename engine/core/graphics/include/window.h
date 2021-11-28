@@ -1,16 +1,16 @@
 #pragma once
 
+#include <SDL.h>
 #include <inputs.h>
 
-#include <string>
 #include <functional>
-
-#include <SDL.h>
+#include <string>
 
 namespace dfe {
 class Window : public IWindowInputs {
  public:
-  Window(std::string_view windowName);
+  Window(std::string_view windowName, const int width = 720,
+         const int height = 640);
   ~Window() = default;
 
   void Init();
@@ -42,6 +42,9 @@ class Window : public IWindowInputs {
   void OnWindowMinimized() const {}
   void OnWindowMaximized() const {}
   void OnWindowRestored() const {}
+
+  const int _width;
+  const int _height;
 
   SDL_Window* _window;
   std::string_view _windowName;

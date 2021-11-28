@@ -2,6 +2,7 @@
 #include <core_system_manager.h>
 #include <inputs.h>
 #include <log.h>
+#include <vector.h>
 
 #include <chrono>
 #include <string>
@@ -41,6 +42,10 @@ void Gameloop::Update() {
     for (size_t i = 0; i < _inputsUpdatables.size(); i++) {
       _inputsUpdatables[i]->UpdateInputs();
     }
+
+    maths::Vec2<int> v2;
+
+    std::cout << maths::Vec2<int>::AngleBetween(maths::Vec2<int>::up, maths::Vec2<int>::left) << "\n";
 
     // Update
 

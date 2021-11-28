@@ -29,6 +29,9 @@ target_include_directories(DFE_Core PUBLIC "debug/include/")
 target_include_directories(DFE_Core PUBLIC "graphics/include/")
 target_include_directories(DFE_Core PUBLIC "inputs/include/")
 
+#Comon
+target_link_libraries(DFE_Core PUBLIC DFE_Common)
+
 #SDL 2
 find_package(SDL2 REQUIRED)
 target_include_directories(DFE_Core PUBLIC ${SDL2_INCLUDE_DIRS})
