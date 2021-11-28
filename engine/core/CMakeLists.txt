@@ -34,3 +34,7 @@ find_package(SDL2 REQUIRED)
 target_include_directories(DFE_Core PUBLIC ${SDL2_INCLUDE_DIRS})
 target_link_libraries(DFE_Core PUBLIC ${SDL2_LIBRARIES})
 
+#Vulkan
+find_package(Vulkan REQUIRED)
+target_include_directories(DFE_Core PUBLIC ${Vulkan_INCLUDE_DIRS})
+target_link_libraries(DFE_Core PUBLIC ${Vulkan_LIBRARIES})
