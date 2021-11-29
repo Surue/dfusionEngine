@@ -29,7 +29,7 @@ target_include_directories(DFE_Core PUBLIC "debug/include/")
 target_include_directories(DFE_Core PUBLIC "graphics/include/")
 target_include_directories(DFE_Core PUBLIC "inputs/include/")
 
-#Comon
+#Common
 target_link_libraries(DFE_Core PUBLIC DFE_Common)
 
 #SDL 2

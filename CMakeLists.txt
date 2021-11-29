@@ -10,9 +10,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS On)
 set(DFE_COMMON_DIR "${CMAKE_SOURCE_DIR}/engine/common/" CACHE INTERNAL "")
 add_subdirectory(${DFE_COMMON_DIR})
 
-#Modules
-#set(DFE_MODULES_DIR "${CMAKE_SOURCE_DIR}/engine/modules/" CACHE INTERNAL "")
-#add_subdirectory(${DFE_MODULES_DIR})
+#Core
+set(DFE_RESOURCES_DIR "${CMAKE_SOURCE_DIR}/resources/" CACHE INTERNAL "")
+add_subdirectory(${DFE_RESOURCES_DIR})
 
 #Core
 set(DFE_CORE_DIR "${CMAKE_SOURCE_DIR}/engine/core/" CACHE INTERNAL "")
