@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <core_system.h>
 #include <window.h>
+#include <pipeline.h>
 
 #include <string_view>
 
@@ -41,5 +42,7 @@ class GraphicsEngine : public IRenderable {
  private:
   Window _window;
   SDL_Renderer *_renderer;
+
+  Pipeline _pipeline{"../resources/shaders/default.vert", "../resources/shaders/default.frag"};
 };
 }  // namespace dfe
