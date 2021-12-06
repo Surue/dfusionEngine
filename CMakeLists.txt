@@ -25,5 +25,5 @@ add_subdirectory(${DFE_CORE_DIR})
 #Engine
 add_executable(dfusionEngine main.cpp)
 
-target_link_libraries(dfusionEngine PRIVATE DFE_Core)
+target_link_libraries(dfusionEngine PRIVATE DFE_CORE)
 
