@@ -21,6 +21,8 @@ class Window : public IWindowInputs {
 
   const SDL_Window& GetWindow() const { return *_window; }
 
+  std::vector<const char*> GetVulkanExtensions() const;
+
   std::function<void()> GetCallbackOnWindowsResized() {
     return [&]() { OnWindowResize(); };
   }

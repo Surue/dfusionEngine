@@ -43,10 +43,10 @@ find_package(SDL2 REQUIRED)
 target_include_directories(DFE_CORE PUBLIC ${SDL2_INCLUDE_DIRS})
 target_link_libraries(DFE_CORE PUBLIC ${SDL2_LIBRARIES})
 
-add_custom_command(TARGET DFE_CORE POST_BUILD
-     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-         "${CMAKE_SOURCE_DIR}/externals/SDL2-2.0.16/lib/x64/SDL2.dll"
-         $<TARGET_FILE_DIR:DFE_Core>)
+#add_custom_command(TARGET DFE_CORE POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#         "${CMAKE_SOURCE_DIR}/externals/SDL2-2.0.16/lib/x64/SDL2.dll"
+#         $<TARGET_FILE_DIR:DFE_Core>)
 
 #Vulkan
 find_package(Vulkan REQUIRED)
